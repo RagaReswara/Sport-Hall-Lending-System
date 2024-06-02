@@ -1,0 +1,32 @@
+header {
+    margin: 3;
+    background-color: rgb(17, 78, 201);
+}
+
+body{
+    margin: 3;
+    /* background-color: rgb(155, 200, 248); */
+    background-color: #ffffff;
+}
+
+/* NAVBAR */
+.navbar{
+    border-bottom: 1px solid #000000;
+}
+.navbar .nav-item {
+    border-left: 1px solid #000000;
+}
+.navbar .nav-item:last-child {
+    border-left: 1px solid #000000;
+    
+}
+.nav-link {
+    font-family: "Arial", sans-serif;
+    font-style: italic;
+}
+.sticky-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
