@@ -50,5 +50,7 @@ Route::get('/counter',[FormController::class,'counter']);
 Route::post('/downloadSurat', [FormController::class, 'downloadSurat']);
 Route::post('/downloadTor', [FormController::class, 'downloadTor']);
 
+Route::get('/reset', [FormController::class, 'reset']);
+
 
 

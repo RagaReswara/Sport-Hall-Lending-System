@@ -20,7 +20,8 @@ class UserController extends Controller
             'fakultas' => $request -> fakultas,
             'prodi' => $request -> prodi,
             'role' => $request -> role,
-            'plain_pw' => $request -> password
+            'plain_pw' => $request -> password,
+            'nim_nik' => $request -> nim_nik
         ]);
         return response()->json(['is_success'=> true,'data' => $user]);
         
@@ -60,7 +61,8 @@ class UserController extends Controller
             'fakultas',
             'prodi',
             'role',
-            'plain_pw'
+            'plain_pw',
+            'nim_nik'
         ];
         
         foreach($updateUser as $update){

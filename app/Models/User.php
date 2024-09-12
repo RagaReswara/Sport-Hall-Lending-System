@@ -34,7 +34,8 @@ class User extends Authenticatable
         'fakultas',
         'prodi',
         'role',
-        'plain_pw'
+        'plain_pw',
+        'nim_nik'
     ];
 
     public $timestamps = false;

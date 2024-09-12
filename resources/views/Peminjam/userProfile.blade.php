@@ -58,17 +58,17 @@
                 </div>
                 <div class="sm:col-span-3">
                     <label for="last-name" class="block text-xl font-medium leading-6 text-gray-900">NIM</label>
-                    <div class="mt-2">
-                        <input type="text" name="nim" id="nim" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-6" placeholder="Kosongkan jika diperuntukan untuk instansi" readonly>
+                    <div class="mt-2">  
+                        <input type="text" name="nim" id="nim" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-6" placeholder="Isikan dengan NIM atau NIK">
                     </div>
                 </div>
             </div>
 
             <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div class="sm:col-span-3">
-                    <label for="first-name" class="block text-xl font-medium leading-6 text-gray-900">Nama Singkat Organisasi</label>
+                    <label for="first-name" class="block text-xl font-medium leading-6 text-gray-900">Nama Organisasi</label>
                     <div class="mt-2">
-                        <input type="text" name="singkatan_organisasi" id="singkatan_organisasi" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6" placeholder="Nama Singkat Organisasi">
+                        <input type="text" name="namaOrganisasi" id="namaOrganisasi" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6" placeholder="Isi nama instansi jika bukan organisasi" readonly>
                     </div>
                 </div>
                 <div class="sm:col-span-3">
@@ -80,12 +80,7 @@
             </div>
 
             <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"> 
-                <div class="sm:col-span-3">
-                    <label for="first-name" class="block text-xl font-medium leading-6 text-gray-900">Nama Organisasi</label>
-                    <div class="mt-2">
-                        <input type="text" name="namaOrganisasi" id="namaOrganisasi" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6" placeholder="Isi nama instansi jika bukan organisasi" readonly>
-                    </div>
-                </div>
+                
                 <div class="sm:col-span-3">
                     <label for="last-name" class="block text-xl font-medium leading-6 text-gray-900">Program Studi</label>
                     <div class="mt-2">
@@ -118,6 +113,7 @@
         window.userFakultas = "{{ Auth::user()-> fakultas }}";
         window.userProdi = "{{ Auth::user()-> prodi }}";
         window.role = "{{ Auth::user()-> role }}";
+        window.userNim = "{{ Auth::user()-> nim_nik }}";
 
         const inputField = document.getElementById('nama_pj');
         const inputEmailField = document.getElementById('email');
@@ -125,6 +121,7 @@
         const inputFakultas = document.getElementById('fakultas');
         const inputProdi = document.getElementById('prodi');
         const inputNamaOrganisasi = document.getElementById('namaOrganisasi');
+        const inputNim = document.getElementById('nim');
         document.addEventListener("DOMContentLoaded", function() {
 
             if (inputField && nama_pj) {
@@ -135,6 +132,7 @@
             inputFakultas.value = userFakultas;
             inputProdi.value = userProdi;
             inputNamaOrganisasi.value = userNamaOrganisasi;
+            inputNim.value = userNim;
 
             function cekRoleFields() {
                 const inputFakultas = document.getElementById('fakultas').parentNode.parentNode;

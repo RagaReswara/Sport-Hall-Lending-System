@@ -47,7 +47,7 @@
             </div>
             <!-- TABEL HARIAN -->
 
-            <nav aria-label="Page navigation example" class="justify-end items-center">
+            <!-- <nav aria-label="Page navigation example" class="justify-end items-center">
                 <ul class="flex items-center -space-x-px h-8 text-sm">
                     <li>
                     <a href="#" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -81,7 +81,7 @@
                     </a>
                     </li>
                 </ul>
-            </nav>
+            </nav> -->
 
             <h2 class="font-bold text-3xl mt-10">Rekap Peminjaman</h2>
             <div class="py-3 flex items-center">
@@ -118,7 +118,10 @@
                                 Tanggal
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Banyaknya Permintaan Booking
+                                Banyaknya Permintaan Booking Disetujui
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Banyaknya Permintaan Booking Ditolak
                             </th>
                         </tr>
                     </thead>
@@ -313,6 +316,7 @@
                 
 
                     let counter = 0;
+                    let counterTolak = 0;
                     try {
                         const response = await fetch('http://127.0.0.1:8000/api/rekap', {
                             method: 'POST', 
@@ -330,8 +334,17 @@
                         const tbodyHarian = document.querySelector('#rekap');
                         tbodyHarian.innerHTML = ''; // Clear previous rows
 
-                        data.data.forEach((item) => {
-                                counter++;
+                        data.data.forEach(item => {
+                                if(item.status == 3 && item.special_status == 2){
+                                    counter++;
+                                }
+                                if(item.status == 0 && item.special_status == 3){
+                                    counterTolak ++;
+                                }
+                                console.log("ini counter " + counter)
+                                console.log("ini counter Tolak " + counterTolak)
+                                console.log("ini status " + item.status)
+                                console.log("ini special status " + item.special_status)
                                 const row = 
                                 `
                                     <tr class="bg-white border-b text-base dark:bg-gray-200 dark:border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-300 dark:text-black">
@@ -340,6 +353,9 @@
                                         </th>
                                         <td class="px-6 py-4">
                                             ${counter}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            ${counterTolak}
                                         </td>
                                     </tr>
                                 `;

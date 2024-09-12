@@ -14,10 +14,31 @@ class Kernel extends ConsoleKernel
      * Define the application's command schedule.
      */
     public function resetStatusJadwal(){
-        $jadwal = jadwal::where('status', 1) -> get();
-        foreach($jadwal as $slot){
-            $slot -> status = 0;
-            $slot -> save();
+        $forms = Form::whereNotIn('kat_kegiatan', ['Event', 'Rutin'])->get();
+        $allJadwal = [];
+
+        // Iterate through each form record
+        foreach ($forms as $item) {
+            $getSlot = $item->slot;
+
+            // Check if the slot attribute is properly formatted
+            if (!is_null($getSlot) && strpos($getSlot, '-') !== false) {
+                list($startSlot, $endSlot) = explode('-', $getSlot);
+                $startSlot = trim($startSlot);
+                $endSlot = trim($endSlot);
+
+                // Fetch matching Jadwal records
+                $jadwalRecords = Jadwal::where('hari', $item->hari)
+                                    ->where('jam_mulai', $startSlot)
+                                    ->get();
+
+                // Update each Jadwal record's status and add to the allJadwal array
+                foreach ($jadwalRecords as $jadwal) {
+                    $jadwal->status = 0;
+                    $jadwal->save();
+                    $allJadwal[] = $jadwal;
+                }
+            }
         }
     }
 

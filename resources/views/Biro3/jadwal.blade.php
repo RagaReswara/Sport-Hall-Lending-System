@@ -38,7 +38,7 @@
                 <span class="flex items-center text-lg font-medium text-gray-900 dark:text-white me-3"><span class="flex w-2.5 h-2.5 bg-yellow-300 rounded-full me-1.5 flex-shrink-0"></span>Kosong Sebagian</span>
                 <span class="flex items-center text-lg font-medium text-gray-900 dark:text-white me-3"><span class="flex w-2.5 h-2.5 bg-red-500 rounded-full me-1.5 flex-shrink-0"></span>Penuh</span>
                 
-                <span class="flex items-center text-lg font-medium text-gray-900 dark:text-white me-3">||   Waktu yang ditampilkan berdasarkan Waktu Indonesia bagian Barat</span>
+                <span class="flex items-center text-lg font-medium text-gray-900 dark:text-white me-3">||   Waktu yang ditampilkan berdasarkan Waktu Indonesia bagian Barat (WIB)</span>
                 
                 </div>
             </div>
@@ -133,21 +133,24 @@
                                     lapanganRutin = await checkSlotRutin(dayIndonesian, jamMulai, jamSelesai);
                                 // }
                                 
-                                if (item.status === 1 && (lapangan.status[0] !== 3 || lapanganRutin.status !== 3 ) ) {
-                                        console.log("lapangan", lapangan)
-                                        bgColorClass = 'dark:bg-red-800';
-                                        pointerEventsClass = 'pointer-events-none href="#" onclick="return false;"';
+                                if (item.status === 1 && (lapangan.status[0] !== 3) ) {
+                                    console.log("lapangan", lapangan)
+                                    bgColorClass = 'dark:bg-red-800';
+                                    pointerEventsClass = 'pointer-events-none href="#" onclick="return false;"';
 
-                                        if(lapangan.data[0].count !== 5){
-                                            bgColorClass = 'dark:bg-yellow-500'
-                                            pointerEventsClass = '';
-                                            if(lapanganRutin !== undefined){
+                                    if(lapangan.data[0].count !== 5){
+                                        bgColorClass = 'dark:bg-yellow-500'
+                                        pointerEventsClass = '';
+                                        if(lapanganRutin !== undefined){
+                                            if(lapanganRutin.status !== 3){
                                                 console.log("Lapangan Rutin", lapanganRutin)
-                                                bgColorClass = 'dark:bg-red-800';
-                                                pointerEventsClass = 'pointer-events-none href="#" onclick="return false;"';
+                                            bgColorClass = 'dark:bg-red-800';
+                                            pointerEventsClass = 'pointer-events-none href="#" onclick="return false;"';
                                             }
+                                            
                                         }
-                                } 
+                                    }
+                                }
                                 // else if (item.status === 4) {
                                 //     bgColorClass = 'dark:bg-yellow-400';
                                 // }

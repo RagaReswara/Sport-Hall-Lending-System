@@ -212,7 +212,7 @@ class FormController extends Controller
     public function rekap(Request $request){
         $tanggalAwal = $request->input('tanggalAwal');
         $tanggalAkhir = $request->input('tanggalAkhir');
-        $forms = Form::whereBetween('tanggal', [$tanggalAwal, $tanggalAkhir])-> where('status', '=', '3') -> where('special_status', '=', '2') -> get();
+        $forms = Form::whereBetween('tanggal', [$tanggalAwal, $tanggalAkhir])-> get();
         return response()->json(['is_success' => true, 'data' => $forms]);
     }
 
@@ -238,5 +238,40 @@ class FormController extends Controller
             return response()->json(['is_success' => false, 'data' => $file]);
         }
     }
+
+    public function reset()
+    {
+        // Fetch records from the Form table excluding 'Event' and 'Rutin'
+        $forms = Form::whereNotIn('kat_kegiatan', ['Event', 'Rutin'])->get();
+        $allJadwal = [];
+
+        // Iterate through each form record
+        foreach ($forms as $item) {
+            $getSlot = $item->slot;
+
+            // Check if the slot attribute is properly formatted
+            if (!is_null($getSlot) && strpos($getSlot, '-') !== false) {
+                list($startSlot, $endSlot) = explode('-', $getSlot);
+                $startSlot = trim($startSlot);
+                $endSlot = trim($endSlot);
+
+                // Fetch matching Jadwal records
+                $jadwalRecords = Jadwal::where('hari', $item->hari)
+                                    ->where('jam_mulai', $startSlot)
+                                    ->get();
+
+                // Update each Jadwal record's status and add to the allJadwal array
+                foreach ($jadwalRecords as $jadwal) {
+                    $jadwal->status = 0;
+                    $jadwal->save();
+                    $allJadwal[] = $jadwal;
+                }
+            }
+        }
+
+        // Return the collected Jadwal records as a JSON response
+        return response()->json(['is_success' => true, 'data' => $allJadwal]);
+    }
+
 
 }

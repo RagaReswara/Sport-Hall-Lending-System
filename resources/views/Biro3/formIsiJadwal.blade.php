@@ -107,7 +107,7 @@
                             <!-- FULL LAPANGAN -->
                             <div class="relative flex flex-wrap gap-x-3 mt-4">
                                 <div class="flex h-6 items-center">
-                                    <input id="1lapangan" name="line[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                    <input id="1lapangan" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="text-sm leading-6">
                                     <label for="1lapangan" class="font-medium text-gray-900">Full Lapangan</label>
@@ -507,9 +507,9 @@
                 // console.log("Nilai-nilai yang dicentang:", selectedLines);
 
                 formData.append('lapangan', selectedLines);
-                // formData.append("hariRutin", dayIndonesian);
-                // formData.append("slotRutin", simpanSlot);
-                // formData.append("tanggalRutin", tanggalRutin);
+                formData.append("hariRutin", dayIndonesian);
+                formData.append("slotRutin", simpanSlot);
+                formData.append("tanggalRutin", tanggalRutin);
 
                 if(karyawanInput == 'Karyawan' || 'Lainnya'){
                     formData.append('special_status', 2);
@@ -533,7 +533,7 @@
                             window.location.href = '/listPermohonan';
                         })
                     }
-                    // document.getElementById("getSlotRutin").value = startRutin;
+                    document.getElementById("getSlotRutin").value = startRutin;
                 })
         }
 

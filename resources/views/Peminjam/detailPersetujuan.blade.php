@@ -118,8 +118,7 @@
                     </thead>
                 </table>
 
-                <div class="inline-flex rounded-md shadow-sm mb-10" role="group">
-                    <!-- DOWNLOAD FILE SURAT PEMINJAMAN -->
+                <!-- <div class="inline-flex rounded-md shadow-sm mb-10" role="group">
                     <div class="mt-5 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-4">
                         <div class="sm:col-span-2 sm:col-start-1">
                             <label class="block mb-2 text-base font-medium text-gray-900 dark:text-gray-900" for="surat_peminjaman">Surat Peminjaman</label>
@@ -134,7 +133,7 @@
                         </button>
                         
                     </div>
-                </div>
+                </div>  -->
 
                 <table>
                         <tr class="bg-white dark:bg-white text-black">

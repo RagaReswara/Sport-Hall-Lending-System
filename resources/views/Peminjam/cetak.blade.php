@@ -146,6 +146,10 @@
                 <th>Catatan</th>
                 <td>: {{ $dataFormCetak -> catatan }}</td>
             </tr>
+            <tr>
+                <th>Catatan</th>
+                <td>: </td>
+            </tr>
         </table>
 
         <div class="signature-container">
@@ -156,8 +160,11 @@
             <div class="signature">
                 <div>TTD Biro 3</div>
                 <div class="signature-line"></div>
+                <div>Satpam</div>
+                <div class="signature-line"></div>
             </div>
         </div>
+        
         
         <div class="attention">
             <h2>Perhatian</h2>

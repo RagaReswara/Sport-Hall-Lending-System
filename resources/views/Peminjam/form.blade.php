@@ -404,34 +404,6 @@
                     const day = parts[1];
                     const tanggal = parts[3]+'-'+parts[2]+'-'+parts[0];
 
-                    basketCheckbox.addEventListener('change', function(){
-                        const selectedValue = basketCheckbox.value;
-
-                    if(selectedValue == "Basket" || selectedValue == "Rutin"){
-                            checkboxes.forEach(function(checkbox) {
-                            const label = document.querySelector(`label[for="${checkbox.id}"]`);
-                            if (checkbox.id !== '1lapangan' ) {
-                                checkbox.classList.add("hidden");
-                                if (label) {
-                                    label.classList.add("hidden");
-                                }
-                            }
-                        });
-                    }
-                    else if(selectedValue == "Event"){
-                        window.location.href = `http://127.0.0.1:8000/formEvent?tanggalEvent=${tanggal}&slotEvent=${start + '-' + end}&hariEvent=${dayIndonesian}`;
-                    }
-                    else{
-                        checkboxes.forEach(function(checkbox) {
-                            const label = document.querySelector(`label[for="${checkbox.id}"]`);
-                            checkbox.classList.remove("hidden");
-                            if (label) {
-                                label.classList.remove("hidden");
-                            }
-                        });
-                    }
-                    })
-
                     const hari = {
                         'Sun': 'Minggu',
                         'Mon': 'Senin',
@@ -443,6 +415,17 @@
                     };
                     const dayIndonesian = hari[day];
 
+                    let lapanganArray = '';
+
+                    function hideOptions(optionValues) {
+                        const selectElement = document.getElementById('kat_kegiatan');
+                        for (let i = 0; i < selectElement.options.length; i++) {
+                            if (optionValues.includes(selectElement.options[i].value)) {
+                                selectElement.options[i].style.display = 'none';
+                            }
+                        }
+                    }
+
                     fetch('http://127.0.0.1:8000/api/cekLapangan', {
                         method: 'post', 
                         headers: {'Content-Type': 'application/json'}, 
@@ -450,11 +433,11 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('abcsajdka',data);
 
                         if (data.lapangan) {
+                            hideOptions(['Basket', 'Lainnya', 'Event'])
                             // Pisahkan string lapangan menjadi array menggunakan koma sebagai pemisah
-                            const lapanganArray = data.lapangan.split(', ');
+                            lapanganArray = data.lapangan.split(', ');
 
                             // Ambil semua input dan label dengan nama line[]
                             const checkboxes = document.querySelectorAll('input[name="line[]"]');
@@ -468,7 +451,7 @@
                                     if (checkbox.id === lapangan) {
                                         // Tambahkan kelas hidden ke input
                                         checkbox.classList.add('hidden');
-                                    }
+                                    }                 
                                 });
 
                                 labels.forEach(label => {
@@ -492,7 +475,50 @@
                         }
                     })
                     .catch(error => console.error('Error fetching data:', error));
-                    
+
+                    basketCheckbox.addEventListener('change', function(){
+                        const selectedValue = basketCheckbox.value;
+
+                    if(selectedValue == "Basket" || selectedValue == "Rutin"){
+                            checkboxes.forEach(function(checkbox) {
+                            const label = document.querySelector(`label[for="${checkbox.id}"]`);
+                            if (checkbox.id !== '1lapangan' ) {
+                                checkbox.classList.add("hidden");
+                                if (label) {
+                                    label.classList.add("hidden");
+                                }
+                            }
+                        });
+                    }
+                    else if(selectedValue == "Event"){
+                        window.location.href = `http://127.0.0.1:8000/formEvent?tanggalEvent=${tanggal}&slotEvent=${start + '-' + end}&hariEvent=${dayIndonesian}`;
+                    }
+                    else{
+                        checkboxes.forEach(function(checkbox) {
+                            // const checkboxes = document.querySelectorAll('input[name="line[]"]');
+                            const labels = document.querySelectorAll('label[for^="line"]');
+                            lapanganArray.forEach(lapangan => {
+                                // Iterasi semua input dan label
+                                checkboxes.forEach(checkbox => {
+                                    // Periksa apakah id lapangan sama dengan id input
+                                    if (checkbox.id === lapangan) {
+                                        // Tambahkan kelas hidden ke input
+                                        checkbox.classList.add('hidden');
+                                    }
+                                                                        
+                                });
+
+                                labels.forEach(label => {
+                                    // Periksa apakah id lapangan sama dengan id label
+                                    if (label.getAttribute('for') === lapangan) {
+                                        // Tambahkan kelas hidden ke label
+                                        label.classList.add('hidden');
+                                    }
+                                });
+                            });
+                        });
+                    }
+                    })
 
                     // Pisahkan jam mulai dan jam selesai
                     const [start, end] = slot.split('-');
@@ -599,7 +625,7 @@
 
                 const tanggalRutin = flatpickr('input[id="popupPilihTanggal"]', {
                         dateFormat: 'd-D-m-Y',
-                        minDate: 'today', // Mengatur tanggal minimum ke hari ini
+                        minDate: nextSunday, // Mengatur tanggal minimum ke hari ini
                         enableTime: false,
                         onChange: function(selectedDates, newDateStr, instance) {
                             slotRutin.innerHTML = '';  
@@ -666,7 +692,7 @@
                     }
                     inputEmailField.value = userEmail;
                     inputPj.value = userPj;
-                    inputNoTelp.value = userNoTelp;
+                    inputNoTelp.value = '0' + userNoTelp;
 
                 });
 

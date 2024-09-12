@@ -104,7 +104,7 @@
                let response = data.data;
 
                response.forEach(data => {
-                  if(data.status == 1 || data.status == 4){
+                  if(data.status == 1){
                      counter++
                      console.log('ini data ', data)
                   }

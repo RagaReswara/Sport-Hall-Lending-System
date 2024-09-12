@@ -40,7 +40,7 @@
                                 Nomor Telepon
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Fakultas
+                                Kategori
                             </th>
                         </tr>
                     </thead>
@@ -74,11 +74,11 @@
                         </tr>
                     </thead>
                     
-                    <!-- ISI TABEL PRODI -->
+                    <-- ISI TABEL PRODI -->
                     <tbody id="isiTabelProdi"></tbody>
 
                 </table>
-            </div> -->
+            <!-- </div> -->
 
             <!-- <h2 class="mt-5 font-bold text-3xl mb-3 bg-gray-300 rounded-lg">Lainnya</h2>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -103,11 +103,11 @@
                         </tr>
                     </thead>
                     
-                    <!-- ISI TABEL PRODI -->
+                    <-- ISI TABEL PRODI -->
                     <tbody id="isiTabelLainnya"></tbody>
 
-                </table>
-            </div> -->
+                <!-- </table>
+            </div>  -->
 
             </div>
         </div>
@@ -145,7 +145,7 @@
                                 0${item.no_telp}
                             </td>
                             <td class="px-6 py-2">
-                                ${item.fakultas}
+                                ${item.role}
                             </td>
                         </tr>
                     `;
